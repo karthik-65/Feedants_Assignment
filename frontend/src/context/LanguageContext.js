@@ -1,0 +1,290 @@
+import React, { createContext, useContext, useState } from 'react';
+
+const translations = {
+  en: {
+    goBack: 'Go back',
+    registeredBadge: 'Registered',
+    registerNowBadge: 'Register Now',
+    tagDance: 'Dance',
+    tagMultiWin: 'Multi-Win',
+    tagCertificate: 'Winners get certificate',
+    prizePool: 'Prize Pool',
+    entryFee: 'Entry Fee',
+    spotsLeftText: (spots) => `Only ${spots} spots left`,
+    spotsBookedText: (booked, total) => `${booked} / ${total} Booked`,
+    judgeLabel: 'Judge',
+    judgeName: 'Manju Dubey',
+    judgeRole: 'Professional Kathak Dancer',
+    judgeExp: '12+ Years of Experience',
+    introVideo: 'Intro Video',
+    regClosesIn: 'Registration closes in',
+    hurryUp: 'Hurry up!',
+    importantDates: 'Important Dates',
+    registerBefore: 'Register Before',
+    submissionStarts: 'Submission Starts',
+    submissionEnds: 'Submission Ends',
+    resultDate: 'Result Date',
+    dates: {
+      regBeforeDate: '10 Aug 26',
+      regBeforeTime: '11:50 PM',
+      subStartsDate: '6 Aug 26',
+      subStartsTime: '04:00 AM',
+      subEndsDate: '30 Aug 26',
+      subEndsTime: '11:55 PM',
+      resDate: '1 Sept 26',
+      resTime: '11:50 PM'
+    },
+    previousWinners: 'Previous Winners',
+    ranks: {
+      first: '1st Winner',
+      second: '2nd Winner',
+      third: '3rd Winner',
+      fourth: '4th Winner',
+      fifth: '5th Winner',
+      sixth: '6th Winner'
+    },
+    tabAbout: 'About Competition',
+    tabJudging: 'Judging Parameters',
+    tabRules: 'Rules & Eligibility',
+    aboutParagraphs: [
+      'This is an online classical dance competition open for all age groups.',
+      'Participate from anywhere and showcase your talent.',
+      'Express your passion through traditional dance.'
+    ],
+    aboutExpanded: 'Certified judges evaluate submissions based on rhythm (Laya), emotional storytelling (Bhava), posture (Angika), and musicality. Cash prizes and certificates will be awarded to top performers across the nation.',
+    judgingParagraphs: [
+      '1. Expression (Bhava) - 30%: Mastery of emotive storytelling.',
+      '2. Rhythm & Footwork (Tala & Laya) - 30%: Precision and timing.',
+      '3. Grace & Costume (Angika) - 20%: Authentic posture & attire.'
+    ],
+    judgingExpanded: '4. Choreography & Presentation - 20%: Innovation and stage presence.',
+    rulesParagraphs: [
+      '• Video duration must be between 2 to 5 minutes.',
+      '• Solo classical dance performances only (Kathak, Bharatanatyam, etc.).',
+      '• Continuous recording without video cuts or visual effects.'
+    ],
+    rulesExpanded: '• Open to all age categories. Video must be filmed in landscape mode.',
+    viewMore: 'View more ∨',
+    viewLess: 'View less ∧',
+    rewardsTitle: 'Rewards',
+    allPositions: ' (All Positions)',
+    disclaimerPrefix: 'Disclaimer: ',
+    disclaimerText: 'Only contributions from paid participants will be considered for judging.',
+    prizeReceiveQuestion: 'How will you receive\nprize money?',
+    prizeReceiveSub: 'Watch video to know more',
+    refundPolicy: 'Refund policy',
+    securePayments: 'Secure payments powered by',
+    referEarnTitle: 'Refer & Earn more discount',
+    copyLink: 'Copy Link',
+    copied: 'Copied!',
+    referNow: 'Refer Now',
+    earnSub: (amt) => `You earn ₹${amt} for every signup`,
+    hearUsers: 'Hear From Our Users',
+    hearUsersSub: 'See what participants say about Feedants',
+    adHere: 'Ad Here',
+    uploadSubmission: 'Upload Submission',
+    registeredSub: 'Registered',
+    registerCTA: 'Register Now',
+    housefullCTA: 'Housefull',
+    allSpotsBooked: 'All spots booked',
+    regClosedCTA: 'Registration Closed',
+    deadlinePassed: 'Deadline has passed',
+    judgingCTA: 'Judging in Progress',
+    submissionsClosed: 'Submissions Closed',
+    viewResultsCTA: 'View Results',
+    viewMySubmission: 'View My Submission',
+    entrySubmitted: 'Entry Submitted',
+    competitionConcluded: 'Competition Concluded',
+    competitionTitle: 'Feedants Classical Dance',
+    housefull: 'Housefull',
+    reviewsModalTitle: 'What Participants Say',
+    close: 'Close',
+    prizeDistributionModalTitle: 'Prize Money Distribution',
+    prizeDistributionModalBody: '1. Results will be declared on the Result Date.\n2. Winners will receive direct bank transfer or UPI payout within 24 hours.\n3. Certificates of excellence will be immediately issued to verified winners.',
+    understood: 'Understood',
+    confirmRegistration: 'Confirm Registration',
+    participant: 'Participant:',
+    email: 'Email:',
+    competitionLabel: 'Competition:',
+    selectPaymentMethod: 'Select Payment Method (Razorpay Secure)',
+    instantUpi: 'Instant UPI (GPay / PhonePe / Paytm)',
+    cardPayment: 'Debit / Credit Card',
+    payAndRegister: (fee) => `Pay ₹${fee} & Register`,
+    razorpaySecurityText: '256-bit encrypted Razorpay transaction',
+    submissionModalTitle: 'Upload Competition Submission',
+    performanceTitle: 'Performance Title',
+    performanceTitlePlaceholder: 'e.g. Traditional Kathak Tarana',
+    videoUrlLabel: 'Video URL (YouTube / Drive / Reel)',
+    videoUrlPlaceholder: 'https://...',
+    descriptionLabel: 'Description & Raga Details (Optional)',
+    descriptionPlaceholder: 'Mention your tala, raga, or guru...',
+    submitButton: 'Submit Video Entry',
+    submitting: 'Submitting...',
+    demoDockTitle: 'Reviewer Dock (States & Concurrency)',
+    switchUser: 'Active User Switcher',
+    switchLifecycle: 'Lifecycle State Switcher',
+    triggerStressTest: 'Trigger Concurrency Spike (10 simultaneous)',
+    resetToDefault: 'Reset to Default',
+    nav: {
+      home: 'Home',
+      explore: 'Explore',
+      competitions: 'Competitions',
+      profile: 'Profile'
+    }
+  },
+  hi: {
+    goBack: 'वापस जाएं',
+    registeredBadge: 'पंजीकृत',
+    registerNowBadge: 'अभी पंजीकरण करें',
+    tagDance: 'नृत्य',
+    tagMultiWin: 'मल्टी-विन',
+    tagCertificate: 'विजेताओं को प्रमाणपत्र मिलेगा',
+    prizePool: 'पुरस्कार राशि',
+    entryFee: 'प्रवेश शुल्क',
+    spotsLeftText: (spots) => `केवल ${spots} स्थान शेष`,
+    spotsBookedText: (booked, total) => `${booked} / ${total} बुक किए गए`,
+    judgeLabel: 'निर्णायक',
+    judgeName: 'मंजू दुबे',
+    judgeRole: 'पेशेवर कथक नृत्यांगना',
+    judgeExp: '12+ वर्षों का अनुभव',
+    introVideo: 'परिचय वीडियो',
+    regClosesIn: 'पंजीकरण समाप्त होने में',
+    hurryUp: 'जल्दी करें!',
+    importantDates: 'महत्वपूर्ण तिथियां',
+    registerBefore: 'पंजीकरण अंतिम तिथि',
+    submissionStarts: 'प्रविष्टि आरंभ',
+    submissionEnds: 'प्रविष्टि समाप्त',
+    resultDate: 'परिणाम तिथि',
+    dates: {
+      regBeforeDate: '10 अगस्त 26',
+      regBeforeTime: '11:50 रात',
+      subStartsDate: '6 अगस्त 26',
+      subStartsTime: '04:00 सुबह',
+      subEndsDate: '30 अगस्त 26',
+      subEndsTime: '11:55 रात',
+      resDate: '1 सितंबर 26',
+      resTime: '11:50 रात'
+    },
+    previousWinners: 'पिछले विजेता',
+    ranks: {
+      first: 'प्रथम विजेता',
+      second: 'द्वितीय विजेता',
+      third: 'तृतीय विजेता',
+      fourth: 'चतुर्थ स्थान',
+      fifth: 'पंचम स्थान',
+      sixth: 'षष्ठम स्थान'
+    },
+    tabAbout: 'प्रतियोगिता के बारे में',
+    tabJudging: 'मूल्यांकन मानदंड',
+    tabRules: 'नियम एवं पात्रता',
+    aboutParagraphs: [
+      'यह सभी आयु समूहों के लिए खुली एक ऑनलाइन शास्त्रीय नृत्य प्रतियोगिता है।',
+      'कहीं से भी भाग लें और अपनी प्रतिभा का प्रदर्शन करें।',
+      'पारंपरिक नृत्य के माध्यम से अपने जुनून को व्यक्त करें।'
+    ],
+    aboutExpanded: 'प्रमाणित निर्णायक लय, ताल, भाव और शारीरिक मुद्रा के आधार पर प्रविष्टियों का मूल्यांकन करेंगे। देश भर के शीर्ष कलाकारों को नकद पुरस्कार और प्रमाणपत्र प्रदान किए जाएंगे।',
+    judgingParagraphs: [
+      '1. भाव (30%): भावनात्मक अभिव्यक्ति और चेहरे के हाव-भाव।',
+      '2. लय और ताल (30%): ताल और लय के साथ कदमों का तालमेल।',
+      '3. अंगिका और पोशाक (20%): मुद्रा, ग्रेस और पारंपरिक वेशभूषा।'
+    ],
+    judgingExpanded: '4. प्रस्तुति (20%): मंच पर उपस्थिति और संपूर्ण नृत्य संरचना।',
+    rulesParagraphs: [
+      '• वीडियो की अवधि 2 से 5 मिनट के बीच होनी चाहिए।',
+      '• केवल एकल (सोलो) शास्त्रीय नृत्य प्रदर्शन मान्य हैं।',
+      '• लैंडस्केप मोड में बिना किसी संपादन के स्पष्ट रिकॉर्डिंग होनी चाहिए।'
+    ],
+    rulesExpanded: '• सभी आयु वर्ग के लिए मान्य। वीडियो बिना किसी कट के रिकॉर्ड किया जाना चाहिए।',
+    viewMore: 'और देखें ∨',
+    viewLess: 'कम देखें ∧',
+    rewardsTitle: 'पुरस्कार',
+    allPositions: ' (सभी स्थान)',
+    disclaimerPrefix: 'अस्वीकरण: ',
+    disclaimerText: 'केवल भुगतान करने वाले प्रतिभागियों की प्रविष्टियों का ही मूल्यांकन किया जाएगा।',
+    prizeReceiveQuestion: 'आपको पुरस्कार राशि\nकैसे मिलेगी?',
+    prizeReceiveSub: 'अधिक जानने के लिए वीडियो देखें',
+    refundPolicy: 'रिफंड नीति',
+    securePayments: 'द्वारा सुरक्षित भुगतान',
+    referEarnTitle: 'रेफर करें और अतिरिक्त छूट पाएं',
+    copyLink: 'लिंक कॉपी करें',
+    copied: 'कॉपी हो गया!',
+    referNow: 'अभी रेफर करें',
+    earnSub: (amt) => `प्रत्येक साइनअप पर ₹${amt} पाएं`,
+    hearUsers: 'हमारे उपयोगकर्ताओं की राय',
+    hearUsersSub: 'देखें प्रतिभागी फीडएंट्स के बारे में क्या कहते हैं',
+    adHere: 'विज्ञापन',
+    uploadSubmission: 'प्रविष्टि अपलोड करें',
+    registeredSub: 'पंजीकृत',
+    registerCTA: 'अभी पंजीकरण करें',
+    housefullCTA: 'हाउसफुल',
+    allSpotsBooked: 'सभी सीटें भर गईं',
+    regClosedCTA: 'पंजीकरण बंद',
+    deadlinePassed: 'अंतिम तिथि समाप्त हो गई',
+    judgingCTA: 'मूल्यांकन जारी है',
+    submissionsClosed: 'प्रविष्टियां बंद हो गईं',
+    viewResultsCTA: 'परिणाम देखें',
+    viewMySubmission: 'मेरी प्रविष्टि देखें',
+    entrySubmitted: 'प्रविष्टि जमा हो गई',
+    competitionConcluded: 'प्रतियोगिता समाप्त हो गई',
+    competitionTitle: 'फ़ीडएंट्स शास्त्रीय नृत्य',
+    housefull: 'हाउसफुल',
+    reviewsModalTitle: 'प्रतिभागियों के विचार',
+    close: 'बंद करें',
+    prizeDistributionModalTitle: 'पुरस्कार राशि वितरण',
+    prizeDistributionModalBody: '1. परिणाम घोषित होने की तिथि पर नतीजे घोषित किए जाएंगे।\n2. विजेताओं को 24 घंटे के भीतर सीधे बैंक ट्रांसफर या यूपीआई भुगतान प्राप्त होगा।\n3. सत्यापित विजेताओं को तुरंत उत्कृष्टता प्रमाण पत्र जारी किए जाएंगे।',
+    understood: 'समझ गया',
+    confirmRegistration: 'पंजीकरण की पुष्टि करें',
+    participant: 'प्रतिभागी:',
+    email: 'ईमेल:',
+    competitionLabel: 'प्रतियोगिता:',
+    selectPaymentMethod: 'भुगतान का तरीका चुनें (रेज़रपे सुरक्षित)',
+    instantUpi: 'तत्काल यूपीआई (GPay / PhonePe / Paytm)',
+    cardPayment: 'डेबिट / क्रेडिट कार्ड',
+    payAndRegister: (fee) => `₹${fee} का भुगतान करें और पंजीकरण करें`,
+    razorpaySecurityText: '256-बिट एन्क्रिप्टेड रेज़रपे सुरक्षित लेनदेन',
+    submissionModalTitle: 'प्रतियोगिता प्रविष्टि अपलोड करें',
+    performanceTitle: 'प्रस्तुति का शीर्षक',
+    performanceTitlePlaceholder: 'उदा. पारंपरिक कथक तराना',
+    videoUrlLabel: 'वीडियो यूआरएल (यूट्यूब / ड्राइव / रील)',
+    videoUrlPlaceholder: 'https://...',
+    descriptionLabel: 'विवरण एवं राग (वैकल्पिक)',
+    descriptionPlaceholder: 'अपना ताल, राग या गुरु का उल्लेख करें...',
+    submitButton: 'वीडियो प्रविष्टि जमा करें',
+    submitting: 'जमा किया जा रहा है...',
+    demoDockTitle: 'समीक्षक डॉक (अवस्थाएं एवं समवर्ती परीक्षण)',
+    switchUser: 'सक्रिय प्रतिभागी बदलें',
+    switchLifecycle: 'प्रतियोगिता चक्र अवस्था बदलें',
+    triggerStressTest: 'समवर्ती स्पाइक परीक्षण (10 एक साथ)',
+    resetToDefault: 'डिफ़ॉल्ट पर रीसेट करें',
+    nav: {
+      home: 'होम',
+      explore: 'एक्सप्लोर',
+      competitions: 'प्रतियोगिताएं',
+      profile: 'प्रोफाइल'
+    }
+  }
+};
+
+const LanguageContext = createContext();
+
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState('en'); // 'en' or 'hi'
+
+  const t = translations[language];
+
+  const toggleLanguage = (lang) => {
+    if (lang) {
+      setLanguage(lang);
+    } else {
+      setLanguage((prev) => (prev === 'en' ? 'hi' : 'en'));
+    }
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => useContext(LanguageContext);
